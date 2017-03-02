@@ -63,5 +63,17 @@ namespace asp_mvc_2.Models.EntityManager
                 return db.SYSUser.Where(o => o.LoginName.Equals(loginName)).Any();
             }
         }
+        public string GetUserPassword(string loginName)
+        {
+            using (DemoDBEntities2 db = new DemoDBEntities2())
+            {
+                var user = db.SYSUser.Where(o =>
+o.LoginName.ToLower().Equals(loginName));
+                if (user.Any())
+                    return user.FirstOrDefault().PasswordEncryptedText;
+                else
+                    return string.Empty;
+            }
+        } 
     }
 }
